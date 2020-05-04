@@ -9,7 +9,7 @@ public class Matrice{
 	private int taille;
 	private int[][] distances;
 	
-	private int distance_min;
+	private int distance_min = 0;
 	private int infini;
 	
 /**
@@ -56,6 +56,7 @@ public class Matrice{
 			}
 			System.out.println();
 		}
+		System.out.println();
 		return;
 	}
 	
@@ -82,15 +83,15 @@ public class Matrice{
 	 * @return plus grand entier de la ligne j;
 	 */
 	public int recherche_max_ligne(int j) {
-		int max_col = 0;
+		int max_lig = 0;
 		int current = 0;
 		for(int i = 0; i < this.taille; i++) {
 			current = this.distances[j][i];
-			if((current > max_col)&&(current != this.infini)) {
-				max_col = current;
+			if((current > max_lig)&&(current != this.infini)) {
+				max_lig = current;
 			}
 		}
-		return max_col;
+		return max_lig;
 	}
 
 	public int recherche_min_colonne(int i) {
@@ -106,15 +107,15 @@ public class Matrice{
 	}
 	
 	public int recherche_min_ligne(int j) {
-		int min_col = this.distances[j][0];
+		int min_lig = this.distances[j][0];
 		int current = 0;
 		for(int i = 1; i < this.taille; i++) {
 			current = this.distances[j][i];
-			if(current < min_col) {
-				min_col = current;
+			if(current < min_lig) {
+				min_lig = current;
 			}
 		}
-		return min_col;
+		return min_lig;
 	}
 	
 	public void affichage_min_max() {
@@ -131,25 +132,32 @@ public class Matrice{
 		return;
 	}
 	
-	public void reduxtion() {
+	public void reduction() {
+		
+		// réduction par colonne
 		for(int i = 0; i < this.taille; i++) {
-			int min_col = this.recherche_min_colonne(i);
+			int min_col = this.recherche_min_colonne(i); 
 			this.distance_min = this.distance_min + min_col;
+			
 			for(int j = 0; j < this.taille; j++) {
 				if(this.distances[j][i] != this.infini) {
 					this.distances[j][i] = this.distances[j][i] - min_col;
 				}
 			}
 		}
+		
+		// réduction par ligne
 		for(int j = 0; j < this.taille; j++) {
 			int min_lin = this.recherche_min_ligne(j);
 			this.distance_min = this.distance_min + min_lin;
+			
 			for(int i = 0; i < this.taille; i++) {
 				if(this.distances[j][i] != this.infini) {
 					this.distances[j][i] = this.distances[j][i] - min_lin;
 				}
 			}
 		}
+		
 		return;
 	}
 	
@@ -177,5 +185,6 @@ public class Matrice{
 		Matrice reduite = new Matrice(tab, this.taille - 1, this.infini, this.distance_min);
 		return reduite;
 	}
+
 	
 }

@@ -11,8 +11,11 @@ public class Executable {
 		System.out.println("test");
 		Matrice matrice = new Matrice("TSP005");
 		matrice.afficheMatrice();
-		matrice.reduxtion();
+		matrice.affichage_min_max();
+		matrice.reduction();
 		matrice.afficheMatrice();
+//		System.out.println(matrice.getDistance_min());
+		
 		Matrice matrice_red = matrice.retire(2, 2);
 		matrice_red.afficheMatrice();
 	}
