@@ -9,15 +9,16 @@ public class Executable {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("test");
-		Matrice matrice = new Matrice("TSP005");
+		Matrice matrice = new Matrice("TSP010");
 		matrice.afficheMatrice();
-		matrice.affichage_min_max();
-		matrice.reduction();
-		matrice.afficheMatrice();
+		System.out.println("Borne sup" + matrice.calcule_bornesup());
+		//matrice.affichage_min_max();
+		//matrice.reduction();
+		//matrice.afficheMatrice();
 //		System.out.println(matrice.getDistance_min());
 		
-		Matrice matrice_red = matrice.retire(2, 2);
-		matrice_red.afficheMatrice();
+		//Matrice matrice_red = matrice.retire(2, 2);
+		//matrice_red.afficheMatrice();
 	}
 
 }

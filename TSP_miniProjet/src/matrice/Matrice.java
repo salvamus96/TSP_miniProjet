@@ -185,6 +185,61 @@ public class Matrice{
 		Matrice reduite = new Matrice(tab, this.taille - 1, this.infini, this.distance_min);
 		return reduite;
 	}
+	
+	/**
+	 * Cette methode renvoie l'index de l'element le plus petit de la liste
+	 * @param list
+	 * @return
+	 */
+	public int index_plus_petit(ArrayList<Integer> list) {
+		int pp = list.get(0);
+		int index = 0;
+		for(int i =0; i < list.size(); i++) {
+			if(list.get(i) < pp) {
+				pp = list.get(i);
+				index = i;
+			}
+		}
+		return index;
+	}
 
+	/**
+	 * Cette methode calcule la borne superieure de la matrice actuelle
+	 * @return
+	 */
+	public int calcule_bornesup() {
+		int borne_sup = 0;
+		ArrayList<Integer> liste_restants = new ArrayList<Integer>();
+		for(int i = 1; i < this.taille; i++) {
+			liste_restants.add(i);
+		}
+		int current = 0;
+		while(liste_restants.size()>0) {
+			//System.out.println("-- Current : "+ current);
+			ArrayList<Integer> destinations = new ArrayList<Integer>();
+			for (int i = 0; i < liste_restants.size(); i++) {
+				destinations.add(this.chemins[current][liste_restants.get(i)].getDistance());
+			}
+			//affiche_arraylist(liste_restants);
+			//affiche_arraylist(destinations);
+			int pp = this.index_plus_petit(destinations);
+			//System.out.println("Ajout de " + destinations.get(pp));
+			borne_sup = borne_sup + destinations.get(pp);
+			//System.out.println("-- PP : "+ pp);
+			current = liste_restants.get(pp);
+			liste_restants.remove(pp);
+		}
+		borne_sup = borne_sup + this.chemins[current][0].getDistance();
+		return borne_sup;
+	}
+	
+	
+	public static void affiche_arraylist(ArrayList<Integer> liste) {
+		for(int i = 0; i < liste.size(); i++) {
+			System.out.print(liste.get(i) + "-");
+		}
+		System.out.println();
+		return;
+	}
 	
 }
